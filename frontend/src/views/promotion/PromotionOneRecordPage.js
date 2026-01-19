@@ -1,0 +1,47 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Error from "../Error";
+
+const path = "promotion";
+
+function PromotionOneRecord({onerec}) {
+    return (
+        <>
+            <h1>Details</h1>
+            <table>
+                <tr> <td> Promotion ID: </td> <td> {onerec.promotion_id} </td> </tr>
+                <tr> <td> Promotion Title: </td> <td> {onerec.promotitle} </td> </tr>
+                <tr> <td> Promotion Image: </td> <td> {onerec.promoimage} </td> </tr>
+                <tr> <td> Description: </td> <td> {onerec.description} </td> </tr>
+                <tr> <td> Start Date: </td> <td> {new Date(onerec.startdate).toLocaleDateString('en-US', { timeZone: 'UTC' })} </td> </tr>
+                <tr> <td> End Date: </td> <td> {new Date(onerec.enddate).toLocaleDateString('en-US', { timeZone: 'UTC' })} </td> </tr>
+                <tr> <td> Discount Rate: </td> <td> {onerec.discountrate + "%"} </td> </tr>
+            </table>
+        </>
+    );
+}
+
+export default function ProductOneRecordPage() {
+    const { id } = useParams();
+    const [onerec, setOnerec] = useState(null);
+    const [error, setError] = useState(null);
+    useEffect(() => {
+        fetch(`http://localhost:5000/${path}/${id}/show`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    setError(data.error);
+                } else {
+                    setOnerec(data.onerec);
+                }
+            });
+    }, [id]);
+    
+    if (error) {
+        return <Error error={error} />;
+    } else if (onerec) {
+        return <PromotionOneRecord onerec={onerec} />;
+    } else {
+        return <p>Loading...</p>;
+    }
+}
