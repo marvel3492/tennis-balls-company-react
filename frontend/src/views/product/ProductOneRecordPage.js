@@ -9,13 +9,15 @@ function ProductOneRecord({onerec}) {
         <>
             <h1>Details</h1>
             <table>
-                <tr> <td> Product ID: </td> <td>{onerec.product_id}</td> </tr>
-                <tr> <td> Product Name: </td> <td>{onerec.productname}</td> </tr>
-                <tr> <td> Image: </td> <td>{onerec.prodimage}</td> </tr>
-                <tr> <td> Description: </td> <td>{onerec.description}</td> </tr>
-                <tr> <td> Sale Price: </td> <td>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(onerec.saleprice)}</td> </tr>
-                <tr> <td> Stock: </td> <td>{onerec.stock}</td> </tr>
-                <tr> <td> Homepage: </td> <td>{onerec.homepage}</td> </tr>
+                <tbody>
+                    <tr><td>Product ID: </td><td>{onerec.product_id}</td></tr>
+                    <tr><td>Image ID: </td><td>{onerec.image_id}</td></tr>
+                    <tr><td>Product Name: </td><td>{onerec.productname}</td></tr>
+                    <tr><td>Description: </td><td>{onerec.description}</td></tr>
+                    <tr><td>Sale Price: </td><td>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(onerec.saleprice)}</td></tr>
+                    <tr><td>Stock: </td><td>{onerec.stock}</td></tr>
+                    <tr><td>Homepage: </td><td>{onerec.homepage}</td></tr>
+                </tbody>
             </table>
         </>
     );

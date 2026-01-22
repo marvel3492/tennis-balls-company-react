@@ -1,8 +1,23 @@
-var express = require('express');
-var router = express.Router();
+import { Router } from 'express';
+import { renderError } from '../util.js';
+var router = Router();
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', function(_req, res, _next) {
+    let query = "SELECT p.product_id, p.productname, p.saleprice, p.stock, i.filename, i.description FROM product p LEFT OUTER JOIN image i ON p.image_id = i.image_id WHERE p.homepage = 1";
+    db.all(query, (err, result) => {
+        if (err) {
+            renderError(res, err);
+        } else {
+            let query2 = "SELECT p.promotion_id, i.filename, i.description FROM promotion p LEFT OUTER JOIN image i ON p.image_id = i.image_id WHERE p.startdate <= date('now') AND p.enddate >= date('now')";
+            db.all(query2, (err2, result2) => {
+                if (err2) {
+                    renderError(res, err2);
+                } else {
+                    res.json({allrecs: result, promos: result2});
+                }
+            });
+        }
+    });
 });
 
-module.exports = router;
+export default router;

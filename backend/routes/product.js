@@ -1,6 +1,6 @@
-var express = require('express');
-var {adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord} = require('../util');
-var router = express.Router();
+import { Router } from 'express';
+import { adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
+var router = Router();
 
 // ==================================================
 // Route to list all records. Display view to list all records
@@ -29,13 +29,13 @@ router.post('/', adminonly, function(req, res, _next) {
         homepage_value = 1;
     }
 
-    let description = "";
-    if (req.body.description) {
-        description = req.body.description;
+    let imageId = null;
+    if (req.body.image_id) {
+        imageId = req.body.image_id;
     }
-    
-    let insertquery = "INSERT INTO product(productname, prodimage, description, saleprice, stock, homepage) VALUES(?, ?, ?, ?, ?, ?)";
-    db.run(insertquery, [req.body.productname, req.body.prodimage, description, req.body.saleprice, req.body.stock, homepage_value], (err) => {
+
+    let insertquery = "INSERT INTO product(image_id, productname, description, saleprice, stock, homepage) VALUES(?, ?, ?, ?, ?, ?)";
+    db.run(insertquery, [imageId, req.body.productname, req.body.description, req.body.saleprice, req.body.stock, homepage_value], (err) => {
         if (err) {
             renderError(res, err, 400);
         } else {
@@ -62,13 +62,13 @@ router.post('/save', adminonly, function(req, res, _next) {
         homepage_value = 1;
     }
 
-    let description = "";
-    if (req.body.description) {
-        description = req.body.description;
+    let imageId = null;
+    if (req.body.image_id) {
+        imageId = req.body.image_id;
     }
 
-    let updatequery = "UPDATE product SET productname = ?, prodimage = ?, description = ?, saleprice = ?, stock = ?, homepage = ? WHERE product_id = ?";
-    db.run(updatequery, [req.body.productname, req.body.prodimage, description, req.body.saleprice, req.body.stock, homepage_value, req.body.id], (err) => {
+    let updatequery = "UPDATE product SET image_id = ?, productname = ?, description = ?, saleprice = ?, stock = ?, homepage = ? WHERE product_id = ?";
+    db.run(updatequery, [imageId, req.body.productname, req.body.description, req.body.saleprice, req.body.stock, homepage_value, req.body.id], (err) => {
         if (err) {
             renderError(res, err, 400);
         } else {
@@ -86,4 +86,4 @@ router.delete('/delete', adminonly, function(req, res, _next) {
     deleteRecord(req, res, query);
 });
 
-module.exports = router;
+export default router;

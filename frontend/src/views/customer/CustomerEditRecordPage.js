@@ -67,16 +67,18 @@ export default function CustomerEditRecordPage() {
                 <form onSubmit={handleSubmit}>
                     <input type="hidden" name="customer_id" value={onerec.customer_id} />
                     <table>
-                        <tr> <td> First Name: </td> <td> <input type="text" name="firstname" value={firstname} onChange={(e) => setFirstName(e.target.value)} required /> </td> </tr>
-                        <tr> <td> Last Name: </td> <td> <input type="text" name="lastname" value={lastname} onChange={(e) => setLastName(e.target.value)} required /> </td> </tr>
-                        <tr> <td> Email: </td> <td> <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required /> </td> </tr>
-                        <tr> <td> Phone: </td> <td> <input type="text" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required /> </td> </tr>
-                        <tr> <td> Address: </td> <td> <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)} required /> </td> </tr>
-                        <tr> <td> City: </td> <td> <input type="text" name="city" value={city} onChange={(e) => setCity(e.target.value)} required /> </td> </tr>
-                        <tr> <td> State: </td> <td> <input type="text" name="state" value={state} onChange={(e) => setState(e.target.value)} required /> </td> </tr>
-                        <tr> <td> Zip: </td> <td> <input type="text" name="zip" value={zip} onChange={(e) => setZip(e.target.value)} required /> </td> </tr>
-                        <tr> <td> Username: </td> <td> <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required /> </td> </tr>
-                        <tr> <td> Password (optional): </td> <td> <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} /> </td> </tr>
+                        <tbody>
+                            <tr><td>First Name: </td><td><input type="text" name="firstname" maxLength={20} value={firstname} onChange={(e) => setFirstName(e.target.value)} required /></td></tr>
+                            <tr><td>Last Name: </td><td><input type="text" name="lastname" maxLength={20} value={lastname} onChange={(e) => setLastName(e.target.value)} required /></td></tr>
+                            <tr><td>Email: </td><td><input type="email" name="email" maxLength={25} value={email} onChange={(e) => setEmail(e.target.value)} required /></td></tr>
+                            <tr><td>Phone: </td><td><input type="text" name="phone" maxLength={20} value={phone} onChange={(e) => setPhone(e.target.value)} required /></td></tr>
+                            <tr><td>Address: </td><td><input type="text" name="address" maxLength={50} value={address} onChange={(e) => setAddress(e.target.value)} required /></td></tr>
+                            <tr><td>City: </td><td><input type="text" name="city" maxLength={20} value={city} onChange={(e) => setCity(e.target.value)} required /></td></tr>
+                            <tr><td>State: </td><td><input type="text" name="state" maxLength={50} value={state} onChange={(e) => setState(e.target.value)} required /></td></tr>
+                            <tr><td>Zip: </td><td><input type="text" name="zip" maxLength={10} value={zip} onChange={(e) => setZip(e.target.value)} required /></td></tr>
+                            <tr><td>Username: </td><td><input type="text" name="username" maxLength={20} value={username} onChange={(e) => setUsername(e.target.value)} required /></td></tr>
+                            <tr><td>Password: </td><td><input type="password" name="password" maxLength={30} value={password} onChange={(e) => setPassword(e.target.value)} required /></td></tr>
+                        </tbody>
                     </table>
                     <button type="submit">Save</button>
                 </form>

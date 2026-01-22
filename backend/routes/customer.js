@@ -1,7 +1,7 @@
-var express = require('express');
-var bcrypt = require('bcryptjs');
-var {adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord} = require('../util');
-var router = express.Router();
+import { Router } from 'express';
+import { genSalt, hash as _hash } from 'bcryptjs';
+import { adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
+var router = Router();
 
 // ==================================================
 // Route Provide Login Window
@@ -105,11 +105,11 @@ router.get('/:recordid/show', adminonly, function(req, res, _next) {
 // ==================================================
 router.post('/', function(req, res, _next) {
     let insertquery = "INSERT INTO customer (firstname, lastname, email, phone, address, city, state, zip, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    bcrypt.genSalt(10, (err, salt) => {
+    genSalt(10, (err, salt) => {
         if (err) {
             renderError(res, err);
         } else {
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
+            _hash(req.body.password, salt, (err, hash) => {
                 if (err) {
                     renderError(res, err);
                 } else {
@@ -154,11 +154,11 @@ router.post('/save', adminonly, function(req, res, _next) {
             }
         });
     } else {
-        bcrypt.genSalt(10, (err, salt) => {
+        genSalt(10, (err, salt) => {
             if (err) {
                 renderError(res, err);
             } else {
-                bcrypt.hash(req.body.password, salt, (err, hash) => {
+                _hash(req.body.password, salt, (err, hash) => {
                     if (err) {
                         renderError(res, err);
                     } else {
@@ -186,4 +186,4 @@ router.delete('/delete', adminonly, function(req, res, _next) {
     deleteRecord(req, res, query);
 });
 
-module.exports = router;
+export default router;

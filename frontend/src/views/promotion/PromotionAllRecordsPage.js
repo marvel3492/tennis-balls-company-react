@@ -1,21 +1,12 @@
 import { useState, useEffect } from "react";
 import Error from "../Error";
+import { showRecords } from "../../Utils";
 
 const path = "promotion";
 
 export default function PromotionAllRecordsPage() {
     const [allrecs, setAllrecs] = useState(null);
     const [error, setError] = useState(null);
-
-    function showRecords() {
-        fetch(`http://localhost:5000/${path}`).then(res => res.json()).then(data => {
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setAllrecs(data.allrecs);
-            }
-        });
-    }
 
     const handleSubmit = async (e, recordid) => {
         e.preventDefault(); // prevent page reload
@@ -33,7 +24,7 @@ export default function PromotionAllRecordsPage() {
         }
     };
 
-    useEffect(() => showRecords(), []);
+    useEffect(() => showRecords(path, setError, setAllrecs), []);
 
     if (error) {
         return <Error error={error} />;
@@ -46,8 +37,8 @@ export default function PromotionAllRecordsPage() {
                     <thead>
                         <tr>
                             <th>Promotion ID</th>
+                            <th>Image ID</th>
                             <th>Promotion Title</th>
-                            <th>Promotion Image</th>
                             <th>Description</th>
                             <th>Start Date</th>
                             <th>End Date</th>
@@ -58,8 +49,8 @@ export default function PromotionAllRecordsPage() {
                         {allrecs.map((recref) => (
                             <tr key={recref.promotion_id}>
                                 <td>{recref.promotion_id}</td>
+                                <td>{recref.image_id}</td>
                                 <td>{recref.promotitle}</td>
-                                <td>{recref.promoimage}</td>
                                 <td>{recref.description}</td>
                                 <td>{new Date(recref.startdate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</td>
                                 <td>{new Date(recref.enddate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</td>

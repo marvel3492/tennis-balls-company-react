@@ -1,4 +1,4 @@
-function adminonly(req, res, next) { // TODO later
+export function adminonly(req, res, next) {
     // if (!req.session.isadmin) {
     //     return res.redirect('/');  // Return to homepage if accessing restricted area.
     // } else {
@@ -6,12 +6,12 @@ function adminonly(req, res, next) { // TODO later
     // }
 }
 
-function renderError(res, err, code = 500) {
+export function renderError(res, err, code = 500) {
     console.log(err);
     res.status(code).json({error: err});
 }
 
-function renderAllRecords(res, query) {
+export function renderAllRecords(res, query) {
     db.all(query, (err, result) => {
         if (err) {
             renderError(res, err);
@@ -21,7 +21,7 @@ function renderAllRecords(res, query) {
     });
 }
 
-function renderOneRecord(req, res, query) {
+export function renderOneRecord(req, res, query) {
     db.all(query, [req.params.recordid], (err, result) => {
         if (err) {
             renderError(res, err);
@@ -33,7 +33,7 @@ function renderOneRecord(req, res, query) {
     });
 }
 
-function deleteRecord(req, res, query) {
+export function deleteRecord(req, res, query) {
     db.run(query, [req.body.recordid], (err) => {
         if (err) {
             renderError(res, err);
@@ -42,5 +42,3 @@ function deleteRecord(req, res, query) {
         }
     });
 }
-
-module.exports = {adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord}

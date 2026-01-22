@@ -1,6 +1,6 @@
-var express = require('express');
-var {adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord} = require('../util');
-var router = express.Router();
+import { Router } from 'express';
+import { adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
+var router = Router();
 
 // ==================================================
 // Route to list all records. Display view to list all records
@@ -24,13 +24,13 @@ router.get('/:recordid/show', function(req, res, _next) {
 // Route to obtain user input and save in database.
 // ==================================================
 router.post('/', adminonly, function(req, res, _next) {
-    let description = "";
-    if (req.body.description) {
-        description = req.body.description;
+    let imageId = null;
+    if (req.body.image_id) {
+        imageId = req.body.image_id;
     }
 
-    let insertquery = "INSERT INTO promotion(promotitle, promoimage, description, startdate, enddate, discountrate) VALUES(?, ?, ?, ?, ?, ?)";
-    db.run(insertquery, [req.body.promotitle, req.body.promoimage, description, req.body.startdate, req.body.enddate, req.body.discountrate], (err) => {
+    let insertquery = "INSERT INTO promotion(image_id, promotitle, description, startdate, enddate, discountrate) VALUES(?, ?, ?, ?, ?, ?)";
+    db.run(insertquery, [imageId, req.body.promotitle, req.body.description, req.body.startdate, req.body.enddate, req.body.discountrate], (err) => {
         if (err) {
             renderError(res, err, 400);
         } else {
@@ -52,13 +52,13 @@ router.get('/:recordid/edit', adminonly, function(req, res, _next) {
 // Route to save edited data in database.
 // ==================================================
 router.post('/save', adminonly, function(req, res, _next) {
-    let description = "";
-    if (req.body.description) {
-        description = req.body.description;
+    let imageId = null;
+    if (req.body.image_id) {
+        imageId = req.body.image_id;
     }
 
-    let updatequery = "UPDATE promotion SET promotitle = ?, promoimage = ?, description = ?, startdate = ?, enddate = ?, discountrate = ? WHERE promotion_id = ?";
-    db.run(updatequery, [req.body.promotitle, req.body.promoimage, description, req.body.startdate, req.body.enddate, req.body.discountrate, req.body.id], (err) => {
+    let updatequery = "UPDATE promotion SET image_id = ?, promotitle = ?, description = ?, startdate = ?, enddate = ?, discountrate = ? WHERE promotion_id = ?";
+    db.run(updatequery, [imageId, req.body.promotitle, description, req.body.startdate, req.body.enddate, req.body.discountrate, req.body.id], (err) => {
         if (err) {
             renderError(res, err, 400);
         } else {
@@ -76,4 +76,4 @@ router.delete('/delete', adminonly, function(req, res, _next) {
     deleteRecord(req, res, query);
 });
 
-module.exports = router;
+export default router;

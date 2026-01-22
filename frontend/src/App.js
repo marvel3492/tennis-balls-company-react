@@ -1,12 +1,14 @@
 import './App.css';
 
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Layout from "./components/Layout";
-import About from "./views/About";
 import CustomerAddRecordPage from "./views/customer/CustomerAddRecordPage";
 import CustomerAllRecordsPage from "./views/customer/CustomerAllRecordsPage";
 import CustomerEditRecordPage from './views/customer/CustomerEditRecordPage';
 import CustomerOneRecordPage from './views/customer/CustomerOneRecordPage';
+import ImageAddRecordPage from "./views/image/ImageAddRecordPage";
+import ImageAllRecordsPage from "./views/image/ImageAllRecordsPage";
+import ImageEditRecordPage from './views/image/ImageEditRecordPage';
+import ImageOneRecordPage from './views/image/ImageOneRecordPage';
 import OrderDetailAddRecordPage from "./views/orderdetail/OrderDetailAddRecordPage";
 import OrderDetailAllRecordsPage from "./views/orderdetail/OrderDetailAllRecordsPage";
 import OrderDetailEditRecordPage from './views/orderdetail/OrderDetailEditRecordPage';
@@ -23,11 +25,14 @@ import SaleOrderAddRecordPage from "./views/saleorder/SaleOrderAddRecordPage";
 import SaleOrderAllRecordsPage from "./views/saleorder/SaleOrderAllRecordsPage";
 import SaleOrderEditRecordPage from "./views/saleorder/SaleOrderEditRecordPage";
 import SaleOrderOneRecordPage from './views/saleorder/SaleOrderOneRecordPage';
+import About from "./views/About";
 import Contact from "./views/Contact";
 import Error from './views/Error';
 import Help from "./views/Help";
 import Index from "./views/Index";
+import Layout from "./components/Layout";
 import Privacy from "./views/Privacy";
+import Search from "./views/Search"
 
 export default function App() {
   return (
@@ -44,6 +49,10 @@ export default function App() {
           <Route path="/customer/register" element={<CustomerAddRecordPage />} />
           <Route path="/customer/:id/show" element={<CustomerOneRecordPage />} />
           <Route path="/customer/:id/edit" element={<CustomerEditRecordPage />} />
+          <Route path="/image" element={<ImageAllRecordsPage />} />
+          <Route path="/image/addrecord" element={<ImageAddRecordPage />} />
+          <Route path="/image/:id/show" element={<ImageOneRecordPage />} />
+          <Route path="/image/:id/edit" element={<ImageEditRecordPage />} />
           <Route path="/orderdetail" element={<OrderDetailAllRecordsPage />} />
           <Route path="/orderdetail/addrecord" element={<OrderDetailAddRecordPage />} />
           <Route path="/orderdetail/:id/show" element={<OrderDetailOneRecordPage />} />
@@ -60,6 +69,7 @@ export default function App() {
           <Route path="/saleorder/addrecord" element={<SaleOrderAddRecordPage />} />
           <Route path="/saleorder/:id/edit" element={<SaleOrderEditRecordPage />} />
           <Route path="/saleorder/:id/show" element={<SaleOrderOneRecordPage />} />
+          <Route path="/search" element={<Search />} />
           <Route path="*" element={<Error error={{code: "Not Found"}} />} />
         </Route>
       </Routes>

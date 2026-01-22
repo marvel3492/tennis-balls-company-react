@@ -1,68 +1,74 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var sqlite3 = require('sqlite3');
+import createError from 'http-errors';
+import express, { json, urlencoded, static as _static } from 'express';
+import { join } from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import sqlite3 from 'sqlite3';
+import cors from 'cors';
+import { readFileSync } from 'fs';
 
-const cors = require('cors');
-const fs = require('fs');
+// Routes
+import customerRouter from "./routes/customer.js";
+import imageRouter from "./routes/image.js";
+import indexRouter from "./routes/index.js";
+import orderDetailRouter from "./routes/orderdetail.js";
+import productRouter from './routes/product.js';
+import promotionRouter from './routes/promotion.js';
+import saleOrderRouter from './routes/saleorder.js';
+import searchRouter from './routes/search.js';
 
 // Connect to (or create) database
 var db = new sqlite3.Database('./database.db', (err) => {
-  if (err) {
-    console.log(err);
-    exit(1);
-  }
+    if (err) {
+        console.log(err);
+        exit(1);
+    }
 });
 
 // Create tables
 try {
-  let sql = fs.readFileSync('tables.sql', 'utf8');
-  db.exec(sql);
+    let sql = readFileSync('tables.sql', 'utf8');
+    db.exec(sql);
 } catch (err) {
-  console.log(err);
-  exit(1);
+    console.log(err);
+    exit(1);
 }
 
 global.db = db;
 
-// Routes
-var customerRouter = require("./routes/customer");
-var orderDetailRouter = require("./routes/orderdetail");
-var productRouter = require('./routes/product');
-var promotionRouter = require('./routes/promotion');
-var saleOrderRouter = require('./routes/saleorder');
-
 var app = express();
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+app.use(cors(/*{ origin: 'http://localhost:3000' }*/));
 
 // Use routes
 app.use("/customer", customerRouter);
+app.use("/image", imageRouter);
+app.use("/", indexRouter);
 app.use("/orderdetail", orderDetailRouter);
 app.use("/product", productRouter);
 app.use("/promotion", promotionRouter);
 app.use("/saleorder", saleOrderRouter);
+app.use("/search", searchRouter);
+
+app.use("/images", _static("uploads"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.json({error: err});
+    // render the error page
+    res.status(err.status || 500);
+    res.json({error: err});
 });
 
-module.exports = app;
+export default app;

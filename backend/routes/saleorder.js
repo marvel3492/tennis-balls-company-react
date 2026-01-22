@@ -1,6 +1,6 @@
-var express = require('express');
-var {adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord} = require('../util');
-var router = express.Router();
+import { Router } from 'express';
+import { adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
+var router = Router();
 
 // ==================================================
 // Route to list all records. Display view to list all records
@@ -24,13 +24,8 @@ router.get('/:recordid/show', adminonly, function(req, res, _next) {
 // Route to obtain user input and save in database.
 // ==================================================
 router.post('/', adminonly, function(req, res, _next) {
-    let description = "";
-    if (req.body.customernotes) {
-        description = req.body.customernotes;
-    }
-
     let insertquery = "INSERT INTO saleorder(customer_id, saledate, customernotes, paymentstatus) VALUES(?, ?, ?, ?)";
-    db.run(insertquery, [req.body.customer_id, req.body.saledate, description, req.body.paymentstatus], (err) => {
+    db.run(insertquery, [req.body.customer_id, req.body.saledate, req.body.customernotes, req.body.paymentstatus], (err) => {
         if (err) {
             renderError(res, err, 400);
         } else {
@@ -76,4 +71,4 @@ router.delete('/delete', adminonly, function(req, res, _next) {
     deleteRecord(req, res, query);
 });
 
-module.exports = router;
+export default router;

@@ -1,21 +1,12 @@
 import { useState, useEffect } from "react";
 import Error from "../Error";
+import { showRecords } from "../../Utils";
 
 const path = "saleorder";
 
 export default function SaleOrderAllRecordsPage() {
     const [allrecs, setAllrecs] = useState(null);
     const [error, setError] = useState(null);
-
-    function showRecords() {
-        fetch(`http://localhost:5000/${path}`).then(res => res.json()).then(data => {
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setAllrecs(data.allrecs);
-            }
-        });
-    }
 
     const handleSubmit = async (e, recordid) => {
         e.preventDefault(); // prevent page reload
@@ -33,7 +24,7 @@ export default function SaleOrderAllRecordsPage() {
         }
     };
 
-    useEffect(() => showRecords(), []);
+    useEffect(() => showRecords(path, setError, setAllrecs), []);
 
     if (error) {
         return <Error error={error} />;

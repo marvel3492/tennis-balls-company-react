@@ -9,13 +9,15 @@ function PromotionOneRecord({onerec}) {
         <>
             <h1>Details</h1>
             <table>
-                <tr> <td> Promotion ID: </td> <td> {onerec.promotion_id} </td> </tr>
-                <tr> <td> Promotion Title: </td> <td> {onerec.promotitle} </td> </tr>
-                <tr> <td> Promotion Image: </td> <td> {onerec.promoimage} </td> </tr>
-                <tr> <td> Description: </td> <td> {onerec.description} </td> </tr>
-                <tr> <td> Start Date: </td> <td> {new Date(onerec.startdate).toLocaleDateString('en-US', { timeZone: 'UTC' })} </td> </tr>
-                <tr> <td> End Date: </td> <td> {new Date(onerec.enddate).toLocaleDateString('en-US', { timeZone: 'UTC' })} </td> </tr>
-                <tr> <td> Discount Rate: </td> <td> {onerec.discountrate + "%"} </td> </tr>
+                <tbody>
+                    <tr><td>Promotion ID: </td><td>{onerec.promotion_id}</td></tr>
+                    <tr><td>Image ID: </td><td>{onerec.image_id}</td></tr>
+                    <tr><td>Promotion Title: </td><td>{onerec.promotitle}</td></tr>
+                    <tr><td>Description: </td><td>{onerec.description}</td></tr>
+                    <tr><td>Start Date: </td><td>{new Date(onerec.startdate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</td></tr>
+                    <tr><td>End Date: </td><td>{new Date(onerec.enddate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</td></tr>
+                    <tr><td>Discount Rate: </td><td>{onerec.discountrate + "%"}</td></tr>
+                </tbody>
             </table>
         </>
     );

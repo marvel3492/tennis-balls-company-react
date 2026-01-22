@@ -1,6 +1,6 @@
-var express = require('express');
-var {adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord} = require('../util');
-var router = express.Router();
+import { Router } from 'express';
+import { adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
+var router = Router();
 
 // ==================================================
 // Route to list all records. Display view to list all records
@@ -66,4 +66,4 @@ router.delete('/delete', adminonly, function(req, res, _next) {
     deleteRecord(req, res, query);
 });
 
-module.exports = router;
+export default router;
