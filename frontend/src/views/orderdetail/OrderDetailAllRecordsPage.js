@@ -41,6 +41,7 @@ export default function OrderDetailAllRecordsPage() {
                             <th>Product ID</th>
                             <th>Sale Price</th>
                             <th>Quantity</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>

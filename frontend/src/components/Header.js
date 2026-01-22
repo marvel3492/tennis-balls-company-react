@@ -39,12 +39,16 @@ export default function Header() {
                 <li> <a href="/catalog">Catalog</a> </li>
                 <li> <a href="/about">About Us</a> </li>
                 <li> <a href="/contact">Contact Us</a> </li>
-                <li> <a href="/customer">Customers</a> </li>
-                <li> <a href="/product">Products</a> </li>
-                <li> <a href="/saleorder">Sale Orders</a> </li>
-                <li> <a href="/orderdetail">Order Details</a> </li>
-                <li> <a href="/promotion">Promotions</a> </li>
-                <li> <a href="/image">Images</a> </li>
+                
+                {/*if(session.isadmin) {*/}
+                    <li> <a href="/customer">Customers</a> </li>
+                    <li> <a href="/product">Products</a> </li>
+                    <li> <a href="/saleorder">Sale Orders</a> </li>
+                    <li> <a href="/orderdetail">Order Details</a> </li>
+                    <li> <a href="/promotion">Promotions</a> </li>
+                    <li> <a href="/image">Images</a> </li>
+                    <li> <a href="/report">Reports</a> </li>
+                {/*}*/}
             </ul>
         </>
     );

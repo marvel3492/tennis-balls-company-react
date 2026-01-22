@@ -41,6 +41,7 @@ export default function SaleOrderAllRecordsPage() {
                             <th>Sale Date</th>
                             <th>Customer Notes</th>
                             <th>Payment Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>

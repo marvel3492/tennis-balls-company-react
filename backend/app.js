@@ -14,6 +14,7 @@ import indexRouter from "./routes/index.js";
 import orderDetailRouter from "./routes/orderdetail.js";
 import productRouter from './routes/product.js';
 import promotionRouter from './routes/promotion.js';
+import reportRouter from './routes/report.js';
 import saleOrderRouter from './routes/saleorder.js';
 import searchRouter from './routes/search.js';
 
@@ -41,7 +42,7 @@ app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors(/*{ origin: 'http://localhost:3000' }*/));
+app.use(cors());
 
 // Use routes
 app.use("/customer", customerRouter);
@@ -50,6 +51,7 @@ app.use("/", indexRouter);
 app.use("/orderdetail", orderDetailRouter);
 app.use("/product", productRouter);
 app.use("/promotion", promotionRouter);
+app.use("/report", reportRouter);
 app.use("/saleorder", saleOrderRouter);
 app.use("/search", searchRouter);
 

@@ -43,6 +43,7 @@ export default function PromotionAllRecordsPage() {
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Discount Rate</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
