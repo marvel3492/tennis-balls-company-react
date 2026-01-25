@@ -1,6 +1,9 @@
 import './App.css';
 
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Cart from "./views/catalog/Cart"
+import Catalog from './views/catalog/Catalog';
+import Checkout from './views/catalog/Checkout';
 import CustomerAddRecordPage from "./views/customer/CustomerAddRecordPage";
 import CustomerAllRecordsPage from "./views/customer/CustomerAllRecordsPage";
 import CustomerEditRecordPage from './views/customer/CustomerEditRecordPage';
@@ -37,6 +40,8 @@ import Index from "./views/Index";
 import Layout from "./components/Layout";
 import Privacy from "./views/Privacy";
 import Search from "./views/Search"
+import Login from './views/customer/Login';
+import ProtectedRoute from './ProtectedRoute';
 
 export default function App() {
     return (
@@ -45,40 +50,168 @@ export default function App() {
                 <Route element={<Layout />}>
                     <Route path="/" element={<Index />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/catalog" element={<Catalog />} />
+                    <Route path="/catalog/cart" element={<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/help" element={<Help />} />
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/search" element={<Search />} />
-                    <Route path="/customer" element={<CustomerAllRecordsPage />} />
-                    <Route path="/customer/addrecord" element={<CustomerAddRecordPage />} />
-                    <Route path="/customer/register" element={<CustomerAddRecordPage />} />
-                    <Route path="/customer/:id/show" element={<CustomerOneRecordPage />} />
-                    <Route path="/customer/:id/edit" element={<CustomerEditRecordPage />} />
-                    <Route path="/image" element={<ImageAllRecordsPage />} />
-                    <Route path="/image/addrecord" element={<ImageAddRecordPage />} />
-                    <Route path="/image/:id/show" element={<ImageOneRecordPage />} />
-                    <Route path="/image/:id/edit" element={<ImageEditRecordPage />} />
-                    <Route path="/orderdetail" element={<OrderDetailAllRecordsPage />} />
-                    <Route path="/orderdetail/addrecord" element={<OrderDetailAddRecordPage />} />
-                    <Route path="/orderdetail/:id/show" element={<OrderDetailOneRecordPage />} />
-                    <Route path="/orderdetail/:id/edit" element={<OrderDetailEditRecordPage />} />
-                    <Route path="/product" element={<ProductAllRecordsPage />} />
-                    <Route path="/product/addrecord" element={<ProductAddRecordPage />} />
-                    <Route path="/product/:id/edit" element={<ProductEditRecordPage />} />
-                    <Route path="/product/:id/show" element={<ProductOneRecordPage />} />
-                    <Route path="/promotion" element={<PromotionAllRecordsPage />} />
-                    <Route path="/promotion/addrecord" element={<PromotionAddRecordPage />} />
-                    <Route path="/promotion/:id/edit" element={<PromotionEditRecordPage />} />
-                    <Route path="/promotion/:id/show" element={<PromotionOneRecordPage />} />
-                    <Route path="/saleorder" element={<SaleOrderAllRecordsPage />} />
-                    <Route path="/saleorder/addrecord" element={<SaleOrderAddRecordPage />} />
-                    <Route path="/saleorder/:id/edit" element={<SaleOrderEditRecordPage />} />
-                    <Route path="/saleorder/:id/show" element={<SaleOrderOneRecordPage />} />
-                    <Route path="/report" element={<ReportMenu />} />
-                    <Route path="/report/customer" element={<CustomerList />} />
-                    <Route path="/report/product" element={<ProductList />} />
-                    <Route path="/report/sale" element={<SaleList />} />
-                    <Route path="*" element={<Error error={{code: "Not Found"}} />} />
+                    <Route path="/customer/login" element={
+                        <ProtectedRoute permissions={0b001}>
+                            <Login />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/customer/register" element={
+                        <ProtectedRoute permissions={0b001}>
+                            <CustomerAddRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/customer" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <CustomerAllRecordsPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/customer/addrecord" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <CustomerAddRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/customer/:id/show" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <CustomerOneRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/customer/:id/edit" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <CustomerEditRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/image" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ImageAllRecordsPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/image/addrecord" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ImageAddRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/image/:id/show" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ImageOneRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/image/:id/edit" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ImageEditRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/orderdetail" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <OrderDetailAllRecordsPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/orderdetail/addrecord" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <OrderDetailAddRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/orderdetail/:id/show" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <OrderDetailOneRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/orderdetail/:id/edit" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <OrderDetailEditRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/product" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ProductAllRecordsPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/product/addrecord" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ProductAddRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/product/:id/edit" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ProductEditRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/product/:id/show" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ProductOneRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/promotion" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <PromotionAllRecordsPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/promotion/addrecord" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <PromotionAddRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/promotion/:id/edit" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <PromotionEditRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/promotion/:id/show" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <PromotionOneRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/saleorder" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <SaleOrderAllRecordsPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/saleorder/addrecord" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <SaleOrderAddRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/saleorder/:id/edit" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <SaleOrderEditRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/saleorder/:id/show" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <SaleOrderOneRecordPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/report" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ReportMenu />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/report/customer" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <CustomerList />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/report/product" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <ProductList />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/report/sale" element={
+                        <ProtectedRoute permissions={0b100}>
+                            <SaleList />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/catalog/checkout" element={
+                        <ProtectedRoute permissions={0b110}>
+                            <Checkout />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="*" element={<Error error={{ code: "Not Found" }} />} />
                 </Route>
             </Routes>
         </BrowserRouter>

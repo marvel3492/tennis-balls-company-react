@@ -34,13 +34,12 @@ export default function Index() {
                                 <p>Welcome to Tennis Balls Company</p>
                                 <hr />
                                 {allrecs.length > 0 && allrecs.map((recref) => (
-                                    recref.stock > 0 && // Not all of the products will show, since some products are out of stock.
                                     <Product recref={recref} key={recref.product_id} />
                                 ))}
                             </td>
                             <td width="20%">
                                 {promos.length > 0 && promos.map((recref) => (
-                                    <p><a href={`/promotion/${recref.promotion_id}/show`}><img src={recref.filename ? `http://localhost:5000/images/${recref.filename}` : logo} alt={recref.description} width="100" height="100" /></a></p>
+                                    <p key={recref.promotion_id}><a href={`/promotion/${recref.promotion_id}/show`}><img src={recref.filename ? `http://localhost:5000/images/${recref.filename}` : logo} alt={recref.description} width="100" height="100" /></a></p>
                                 ))}
                             </td>
                         </tr>

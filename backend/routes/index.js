@@ -3,7 +3,8 @@ import { renderError } from '../util.js';
 var router = Router();
 
 router.get('/', function(_req, res, _next) {
-    let query = "SELECT p.product_id, p.productname, p.saleprice, p.stock, i.filename, i.description FROM product p LEFT OUTER JOIN image i ON p.image_id = i.image_id WHERE p.homepage = 1";
+    // Not all of the products will show, since some products are out of stock.
+    let query = "SELECT p.product_id, p.productname, p.saleprice, p.stock, i.filename, i.description FROM product p LEFT OUTER JOIN image i ON p.image_id = i.image_id WHERE p.homepage = 1 AND p.stock > 0";
     db.all(query, (err, result) => {
         if (err) {
             renderError(res, err);

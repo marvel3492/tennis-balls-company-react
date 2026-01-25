@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Error from "../Error";
-import { showRecords } from "../../Utils";
+import { showRecords, deleteRecord } from "../../Utils";
 
 const path = "customer";
 
@@ -10,18 +10,7 @@ export default function CustomerAllRecordsPage() {
 
     const handleSubmit = async (e, recordid) => {
         e.preventDefault(); // prevent page reload
-        const res = await fetch(`http://localhost:5000/${path}/delete`, {
-            method: "DELETE",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({recordid})
-        });
-
-        const data = await res.json(); // receive response JSON
-        if (data.error) {
-            setError(data.error);
-        } else {
-            showRecords();
-        }
+        deleteRecord(path, recordid, setError, setAllrecs);
     };
 
     useEffect(() => showRecords(path, setError, setAllrecs), []);

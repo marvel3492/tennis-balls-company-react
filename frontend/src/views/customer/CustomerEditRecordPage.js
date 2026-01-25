@@ -23,9 +23,8 @@ export default function CustomerEditRecordPage() {
         e.preventDefault(); // prevent page reload
         const res = await fetch(`http://localhost:5000/${path}/save`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify({id, firstname, lastname, email, phone, address, city, state, zip, username, password})
         });
 
@@ -38,24 +37,24 @@ export default function CustomerEditRecordPage() {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/${path}/${id}/edit`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    setError(data.error);
-                } else {
-                    setFirstName(data.onerec.firstname);
-                    setLastName(data.onerec.lastname);
-                    setEmail(data.onerec.email);
-                    setPhone(data.onerec.phone);
-                    setAddress(data.onerec.address);
-                    setCity(data.onerec.city);
-                    setState(data.onerec.state);
-                    setZip(data.onerec.zip);
-                    setUsername(data.onerec.username);
-                    setOnerec(data.onerec);
-                }
-            });
+        fetch(`http://localhost:5000/${path}/${id}/edit`,
+            {credentials: "include"}
+        ).then(res => res.json()).then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setFirstName(data.onerec.firstname);
+                setLastName(data.onerec.lastname);
+                setEmail(data.onerec.email);
+                setPhone(data.onerec.phone);
+                setAddress(data.onerec.address);
+                setCity(data.onerec.city);
+                setState(data.onerec.state);
+                setZip(data.onerec.zip);
+                setUsername(data.onerec.username);
+                setOnerec(data.onerec);
+            }
+        });
     }, [id]);
     
     if (error) {

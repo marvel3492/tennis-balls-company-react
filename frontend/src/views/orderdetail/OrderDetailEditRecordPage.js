@@ -24,9 +24,8 @@ export default function OrderDetailEditRecordPage() {
 
         const res = await fetch(`http://localhost:5000/${path}/save`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify({id, order_id, product_id, saleprice, qty})
         });
 
@@ -39,19 +38,19 @@ export default function OrderDetailEditRecordPage() {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/${path}/${id}/edit`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    setError(data.error);
-                } else {
-                    setOrderId(data.onerec.order_id);
-                    setProductId(data.onerec.product_id);
-                    setSalePrice(data.onerec.saleprice);
-                    setQuantity(data.onerec.qty);
-                    setOnerec(data.onerec);
-                }
-            });
+        fetch(`http://localhost:5000/${path}/${id}/edit`, 
+            {credentials: "include"}
+        ).then(res => res.json()).then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setOrderId(data.onerec.order_id);
+                setProductId(data.onerec.product_id);
+                setSalePrice(data.onerec.saleprice);
+                setQuantity(data.onerec.qty);
+                setOnerec(data.onerec);
+            }
+        });
     }, [id]);
     
     if (error) {

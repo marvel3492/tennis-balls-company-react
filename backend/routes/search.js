@@ -3,7 +3,7 @@ import { renderError } from '../util.js';
 var router = Router();
 
 router.get('/', function(req, res, _next) {
-    let query = "SELECT * FROM product WHERE description LIKE ? OR productname LIKE ?";
+    let query = "SELECT p.product_id, p.productname, p.saleprice, p.stock, i.filename, i.description FROM product p LEFT OUTER JOIN image i ON p.image_id = i.image_id WHERE p.description LIKE ? OR p.productname LIKE ?";
     db.all(query, [`%${req.query.searchcriteria}%`, `%${req.query.searchcriteria}%`], (err, result) => {
         if (err) {
             renderError(res, err);

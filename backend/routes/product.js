@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
+import { adminOnly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
 var router = Router();
 
 // ==================================================
 // Route to list all records. Display view to list all records
 // URL: http://localhost:3039/product/
 // ==================================================
-router.get('/', adminonly, function(_req, res, _next) {
+router.get('/', adminOnly, function(_req, res, _next) {
     let query = "SELECT * FROM product";
     renderAllRecords(res, query);
 });
@@ -23,7 +23,7 @@ router.get('/:recordid/show', function(req, res, _next) {
 // ==================================================
 // Route to obtain user input and save in database.
 // ==================================================
-router.post('/', adminonly, function(req, res, _next) {
+router.post('/', adminOnly, function(req, res, _next) {
     let homepage_value = 0;
     if (req.body.homepage) {
         homepage_value = 1;
@@ -48,7 +48,7 @@ router.post('/', adminonly, function(req, res, _next) {
 // Route to edit one specific record.
 // URL: http://localhost:3039/product/1/edit
 // ==================================================
-router.get('/:recordid/edit', adminonly, function(req, res, _next) {
+router.get('/:recordid/edit', adminOnly, function(req, res, _next) {
     let query = "SELECT * FROM product WHERE product_id = ?";
     renderOneRecord(req, res, query);
 })
@@ -56,7 +56,7 @@ router.get('/:recordid/edit', adminonly, function(req, res, _next) {
 // ==================================================
 // Route to save edited data in database.
 // ==================================================
-router.post('/save', adminonly, function(req, res, _next) {
+router.post('/save', adminOnly, function(req, res, _next) {
     let homepage_value = 0;
     if (req.body.homepage) {
         homepage_value = 1;
@@ -81,7 +81,7 @@ router.post('/save', adminonly, function(req, res, _next) {
 // Route to delete one specific record.
 // URL: http://localhost:3039/product/delete
 // ==================================================
-router.delete('/delete', adminonly, function(req, res, _next) {
+router.delete('/delete', adminOnly, function(req, res, _next) {
     let query = "DELETE FROM product WHERE product_id = ?";
     deleteRecord(req, res, query);
 });

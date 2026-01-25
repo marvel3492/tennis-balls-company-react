@@ -22,9 +22,8 @@ export default function OrderDetailAddRecordPage() {
 
         const res = await fetch(`http://localhost:5000/${path}`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify({order_id, product_id, saleprice, qty})
         });
 

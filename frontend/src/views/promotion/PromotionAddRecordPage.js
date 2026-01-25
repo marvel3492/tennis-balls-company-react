@@ -24,9 +24,8 @@ export default function PromotionAddRecordPage() {
 
         const res = await fetch(`http://localhost:5000/${path}`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify({promotitle, image_id, description, startdate, enddate, discountrate})
         });
 

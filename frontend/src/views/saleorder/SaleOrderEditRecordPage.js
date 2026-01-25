@@ -17,9 +17,8 @@ export default function SaleOrderEditRecordPage() {
         e.preventDefault(); // prevent page reload
         const res = await fetch(`http://localhost:5000/${path}/save`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify({id, customer_id, saledate, customernotes, paymentstatus})
         });
 
@@ -32,19 +31,19 @@ export default function SaleOrderEditRecordPage() {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/${path}/${id}/edit`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    setError(data.error);
-                } else {
-                    setCustomerId(data.onerec.customer_id);
-                    setSaleDate(data.onerec.saledate);
-                    setCustomerNotes(data.onerec.customernotes);
-                    setPaymentStatus(data.onerec.paymentstatus);
-                    setOnerec(data.onerec);
-                }
-            });
+        fetch(`http://localhost:5000/${path}/${id}/edit`,
+            {credentials: "include"}
+        ).then(res => res.json()).then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setCustomerId(data.onerec.customer_id);
+                setSaleDate(data.onerec.saledate);
+                setCustomerNotes(data.onerec.customernotes);
+                setPaymentStatus(data.onerec.paymentstatus);
+                setOnerec(data.onerec);
+            }
+        });
     }, [id]);
     
     if (error) {

@@ -21,15 +21,16 @@ export default function CustomerAddRecordPage() {
         e.preventDefault(); // prevent page reload
         const res = await fetch(`http://localhost:5000/${path}`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify({firstname, lastname, email, phone, address, city, state, zip, username, password})
         });
 
         const data = await res.json(); // receive response JSON
         if (data.error) {
             setError(data.error);
+        } else if (data.redirect) {
+            navigate(`/customer/login`);
         } else {
             navigate(`/${path}`);
         }

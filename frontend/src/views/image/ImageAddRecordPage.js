@@ -23,6 +23,7 @@ export default function ImageAddRecordPage() {
 
         const res = await fetch(`http://localhost:5000/${path}`, {
             method: "POST",
+            credentials: "include",
             body: formData
         });
 

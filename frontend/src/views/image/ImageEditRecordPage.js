@@ -26,6 +26,7 @@ export default function ImageEditRecordPage() {
 
         const res = await fetch(`http://localhost:5000/${path}/save`, {
             method: "POST",
+            credentials: "include",
             body: formData
         });
 
@@ -38,16 +39,16 @@ export default function ImageEditRecordPage() {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/${path}/${id}/edit`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    setError(data.error);
-                } else {
-                    setDescription(data.onerec.description);
-                    setOnerec(data.onerec);
-                }
-            });
+        fetch(`http://localhost:5000/${path}/${id}/edit`,
+            {credentials: "include"}
+        ).then(res => res.json()).then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setDescription(data.onerec.description);
+                setOnerec(data.onerec);
+            }
+        });
     }, [id]);
     
     if (error) {

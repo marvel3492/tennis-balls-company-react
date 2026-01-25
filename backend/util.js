@@ -1,9 +1,33 @@
-export function adminonly(req, res, next) {
-    // if (!req.session.isadmin) {
-    //     return res.redirect('/');  // Return to homepage if accessing restricted area.
-    // } else {
+export function adminOnly(req, res, next) {
+    if (!req.session.isadmin) {
+        res.json({redirect: true});
+    } else {
         next();
-    // }
+    }
+}
+
+export function adminOrCustomer(req, res, next) {
+    if (!req.session.isadmin && !req.session.customer_id) {
+        res.json({redirect: true});
+    } else {
+        next();
+    }
+}
+
+export function guestOnly(req, res, next) {
+    if (req.session.isadmin || req.session.customer_id) {
+        res.json({redirect: true});
+    } else {
+        next();
+    }
+}
+
+export function guestOrAdmin(req, res, next) {
+    if (!req.session.isadmin && req.session.customer_id) {
+        res.json({redirect: true});
+    } else {
+        next();
+    }
 }
 
 export function renderError(res, err, code = 500) {

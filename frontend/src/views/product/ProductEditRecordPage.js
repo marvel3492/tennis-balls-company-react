@@ -26,9 +26,8 @@ export default function ProductEditRecordPage() {
 
         const res = await fetch(`http://localhost:5000/${path}/save`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify({id, productname, image_id, description, saleprice, homepage, stock})
         });
 
@@ -41,21 +40,21 @@ export default function ProductEditRecordPage() {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/${path}/${id}/edit`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    setError(data.error);
-                } else {
-                    setProductName(data.onerec.productname);
-                    setImageId(data.onerec.image_id);
-                    setDescription(data.onerec.description);
-                    setPrice(data.onerec.saleprice);
-                    setHomepage(data.onerec.homepage);
-                    setStock(data.onerec.stock);
-                    setOnerec(data.onerec);
-                }
-            });
+        fetch(`http://localhost:5000/${path}/${id}/edit`,
+            {credentials: "include"}
+        ).then(res => res.json()).then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setProductName(data.onerec.productname);
+                setImageId(data.onerec.image_id);
+                setDescription(data.onerec.description);
+                setPrice(data.onerec.saleprice);
+                setHomepage(data.onerec.homepage);
+                setStock(data.onerec.stock);
+                setOnerec(data.onerec);
+            }
+        });
     }, [id]);
     
     if (error) {

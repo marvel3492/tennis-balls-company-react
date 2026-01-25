@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { fetchShowRecord } from "../../Utils";
 import Error from "../Error";
 
 const path = "customer";
@@ -20,7 +21,7 @@ function CustomerOneRecord({onerec}) {
                     <tr><td>State: </td><td>{onerec.state}</td></tr>
                     <tr><td>Zip: </td><td>{onerec.zip}</td></tr>
                     <tr><td>Username: </td><td>{onerec.username}</td></tr>
-                    <tr><td>Admin?: </td><td>{onerec.isadmin}</td></tr>
+                    <tr><td>Admin? </td><td>{onerec.isadmin ? 'Yes' : 'No'}</td></tr>
                 </tbody>
             </table>
         </>
@@ -31,17 +32,7 @@ export default function CustomerOneRecordPage() {
     const { id } = useParams();
     const [onerec, setOnerec] = useState(null);
     const [error, setError] = useState(null);
-    useEffect(() => {
-        fetch(`http://localhost:5000/${path}/${id}/show`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    setError(data.error);
-                } else {
-                    setOnerec(data.onerec);
-                }
-            });
-    }, [id]);
+    useEffect(() => fetchShowRecord(path, id, setError, setOnerec), [id]);
     
     if (error) {
         return <Error error={error} />;

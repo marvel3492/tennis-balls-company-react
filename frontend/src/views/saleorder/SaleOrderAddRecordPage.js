@@ -16,9 +16,8 @@ export default function SaleOrderAddRecordPage() {
 
         const res = await fetch(`http://localhost:5000/${path}`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify({customer_id, saledate, customernotes, paymentstatus})
         });
 

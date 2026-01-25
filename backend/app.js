@@ -1,13 +1,14 @@
 import createError from 'http-errors';
 import express, { json, urlencoded, static as _static } from 'express';
-import { join } from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import sqlite3 from 'sqlite3';
 import cors from 'cors';
 import { readFileSync } from 'fs';
+import session from 'express-session';
 
 // Routes
+import catalogRouter from "./routes/catalog.js";
 import customerRouter from "./routes/customer.js";
 import imageRouter from "./routes/image.js";
 import indexRouter from "./routes/index.js";
@@ -42,9 +43,22 @@ app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
+}));
+app.use(session({
+    secret: 'TennisBallsCompanyAppSecret',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(function(req, res, next) {
+    res.locals.session = req.session;
+    next();
+});
 
 // Use routes
+app.use("/catalog", catalogRouter);
 app.use("/customer", customerRouter);
 app.use("/image", imageRouter);
 app.use("/", indexRouter);

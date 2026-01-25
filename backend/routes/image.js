@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import multer from "multer";
 import path from "path";
 import { access, unlink } from 'fs';
-import { adminonly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
+import { adminOnly, renderError, renderAllRecords, renderOneRecord, deleteRecord } from '../util.js';
 var router = Router();
 
 const storage = multer.diskStorage({
@@ -30,7 +30,7 @@ const upload = multer({
 // Route to list all records. Display view to list all records
 // URL: http://localhost:5000/image/
 // ==================================================
-router.get('/', adminonly, function (_req, res, _next) {
+router.get('/', adminOnly, function (_req, res, _next) {
     let query = "SELECT * FROM image";
     renderAllRecords(res, query);
 });
@@ -39,7 +39,7 @@ router.get('/', adminonly, function (_req, res, _next) {
 // Route to view one specific record. Notice the view is one record
 // URL: http://localhost:5000/image/1/show
 // ==================================================
-router.get('/:recordid/show', adminonly, function (req, res, _next) {
+router.get('/:recordid/show', adminOnly, function (req, res, _next) {
     let query = "SELECT * FROM image WHERE image_id = ?";
     renderOneRecord(req, res, query);
 });
@@ -47,7 +47,7 @@ router.get('/:recordid/show', adminonly, function (req, res, _next) {
 // ==================================================
 // Route to obtain user input and save in database.
 // ==================================================
-router.post('/', adminonly, function (req, res, _next) {
+router.post('/', adminOnly, function (req, res, _next) {
     upload.single("file")(req, res, (err) => {
         if (err) {
             renderError(res, err, 400);
@@ -72,7 +72,7 @@ router.post('/', adminonly, function (req, res, _next) {
 // Route to edit one specific record.
 // URL: http://localhost:5000/image/1/edit
 // ==================================================
-router.get('/:recordid/edit', adminonly, function (req, res, _next) {
+router.get('/:recordid/edit', adminOnly, function (req, res, _next) {
     let query = "SELECT * FROM image WHERE image_id = ?";
     renderOneRecord(req, res, query);
 })
@@ -80,7 +80,7 @@ router.get('/:recordid/edit', adminonly, function (req, res, _next) {
 // ==================================================
 // Route to save edited data in database.
 // ==================================================
-router.post('/save', adminonly, function (req, res, _next) {
+router.post('/save', adminOnly, function (req, res, _next) {
     upload.single("file")(req, res, (err) => {
         if (err) {
             renderError(res, err, 400);
@@ -135,7 +135,7 @@ router.post('/save', adminonly, function (req, res, _next) {
 // Route to delete one specific record.
 // URL: http://localhost:5000/image/delete
 // ==================================================
-router.delete('/delete', adminonly, function (req, res, _next) {
+router.delete('/delete', adminOnly, function (req, res, _next) {
     let query = "DELETE FROM image WHERE image_id = ?";
     deleteRecord(req, res, query);
 });
