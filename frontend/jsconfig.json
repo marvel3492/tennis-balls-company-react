@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "jsx": "react-jsx",
+        "types": ["jest"]
+    },
+    "include": ["src", "../shared/src", "../tests/__tests__", "../tests/shared", "../tests/frontend/Privacy.test.jsx", "../tests/frontend/ProductAddRecordPage.test.jsx", "../tests/frontend/PromotionAddRecordPage.test.jsx", "../tests/frontend/ReportMenu.test.jsx", "../tests/frontend/SaleOrderAddRecordPage.test.jsx", "../tests/frontend/Footer.test.jsx", "../tests/frontend/Help.test.jsx", "../tests/frontend/ImageAddRecordPage.test.jsx", "../tests/frontend/OrderDetailAddRecordPage.test.jsx", "../tests/frontend/customer", "../tests/frontend/About.test.jsx", "../tests/frontend/Contact.test.jsx"]
+}

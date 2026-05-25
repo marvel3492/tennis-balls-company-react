@@ -1,0 +1,14 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/Data.js",
+  "module": "src/Data.js",
+  "exports": {
+    ".": "./src/Data.js",
+    "./Data": "./src/Data.js",
+    "./Cart": "./src/Cart.js",
+    "./types": "./src/types.js",
+    "./src/*": "./src/*.js"
+  }
+}

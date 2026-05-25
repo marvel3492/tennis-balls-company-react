@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "checkJs": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "types": ["vitest/globals"],
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
+    },
+    "include": ["shared/**/*", "frontend/**/*", "backend/**/*", "setup.js", "tests/**/*"]
+}
